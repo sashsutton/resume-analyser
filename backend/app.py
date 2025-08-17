@@ -1,4 +1,4 @@
-import flask from Flask, request, jsonify
+from flask import Flask, request, jsonify
 
 import PyPDF2
 import spacy
@@ -68,7 +68,7 @@ def analyse():
             "cv_feedback": {
                 "missing_sctions": [name for name, found in found_sections.items() if not found],
                 "found_keywords": found_keywords,
-                "missing_keywords": list(set(tech_keywords)- set(found_keywords))
+                "missing_keywords": list(set(tech_keywords)- set(found_keywords)),
                 "grammar_issues": [match.message for match in grammar_matches[:3]]
             },
         })
