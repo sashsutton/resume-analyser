@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-
 interface AnalysisResponse {
   sucess: boolean;
   ats_score: number;
@@ -8,7 +7,7 @@ interface AnalysisResponse {
     missing_sctions: string[];
     found_keywords: string[];
     missing_keywords: string[];
-    grammar_issues: string[];
+    grammar_issues: any[];
   };
 }
 
@@ -17,6 +16,9 @@ function App() {
   const [result, setResult] = useState<AnalysisResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Get backend URL from environment or use default
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5001';
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -49,7 +51,7 @@ function App() {
     console.log('File being sent:', file.name, 'Size:', file.size);
 
     try {
-      const response = await fetch('http://localhost:5001/analyse', {
+      const response = await fetch(`${BACKEND_URL}/analyse`, {
         method: 'POST',
         body: formData,
       });
@@ -76,11 +78,11 @@ function App() {
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px', fontFamily: 'Arial, sans-serif' }}>
       <h1 style={{ textAlign: 'center', color: '#333', marginBottom: '30px' }}>
-        Resume Analyser
+        Resume Analyzer
       </h1>
       
       <p style={{ textAlign: 'center', color: '#666', marginBottom: '30px' }}>
-        Upload your PDF resume to get ATS optimization feedback
+        Upload your PDF resume to get ATS optimisation feedback
       </p>
 
       <form onSubmit={handleSubmit} style={{ marginBottom: '30px' }}>
@@ -116,7 +118,7 @@ function App() {
             width: '100%'
           }}
         >
-          {loading ? 'Analysing...' : 'Analyse Resume'}
+          {loading ? 'Analyzing...' : 'Analyze Resume'}
         </button>
       </form>
 
@@ -241,51 +243,21 @@ function App() {
               marginTop: '20px'
             }}>
               <h3 style={{ marginBottom: '15px', color: '#007bff' }}>✍️ Grammar Suggestions</h3>
-              <div style={{ display: 'grid', gap: '15px' }}>
+              <ul style={{ margin: 0, paddingLeft: '20px' }}>
                 {result.cv_feedback.grammar_issues.map((issue, index) => (
-                  <div key={index} style={{
-                    backgroundColor: '#f8f9fa',
-                    padding: '15px',
-                    borderRadius: '6px',
-                    borderLeft: '4px solid #007bff'
-                  }}>
-                    <div style={{ fontWeight: 'bold', marginBottom: '8px' }}>
-                      {issue.message}
-                    </div>
+                  <li key={index} style={{ marginBottom: '8px', color: '#333' }}>
+                    <strong>{issue.message}</strong>
                     {issue.suggestion && (
-                      <div style={{ marginBottom: '8px' }}>
-                        <span style={{ color: '#666' }}>Suggestion: </span>
-                        <span style={{ color: '#28a745' }}>{issue.suggestion}</span>
+                      <span style={{ color: '#28a745' }}> → Suggestion: "{issue.suggestion}"</span>
+                    )}
+                    {issue.context && (
+                      <div style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>
+                        Context: "{issue.context}"
                       </div>
                     )}
-                    <div style={{ 
-                      backgroundColor: '#fff',
-                      padding: '10px',
-                      borderRadius: '4px',
-                      fontFamily: 'monospace',
-                      fontSize: '14px'
-                    }}>
-                      {issue.context.substring(0, issue.context.indexOf(issue.error_word))}
-                      <span style={{ 
-                        backgroundColor: '#fff3cd',
-                        textDecoration: 'underline' 
-                      }}>
-                        {issue.error_word}
-                      </span>
-                      {issue.context.substring(
-                        issue.context.indexOf(issue.error_word) + issue.error_word.length
-                      )}
-                    </div>
-                    <div style={{ 
-                      fontSize: '12px', 
-                      color: '#6c757d', 
-                      marginTop: '8px' 
-                    }}>
-                      Rule: {issue.rule_id}
-                    </div>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           )}
 
