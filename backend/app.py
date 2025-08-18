@@ -5,17 +5,22 @@ import PyPDF2
 import spacy
 import language_tool_python
 import traceback
+import subprocess
 
 app = Flask(__name__)
 CORS(app)
 app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
-try:
-    nlp = spacy.load("en_core_web_sm")
-except OSError:
-    import os
-    os.system("python -m spacy download en_core_web_sm")
-    nlp = spacy.load("en_core_web_sm")
 
+import subprocess
+
+def load_spacy_model():
+    try:
+        return spacy.load("en_core_web_sm")
+    except OSError:
+        subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
+        return spacy.load("en_core_web_sm")
+
+nlp = load_spacy_model()
 tool = language_tool_python.LanguageTool('en-GB')
 
 def extract_text_from_pdf(file):

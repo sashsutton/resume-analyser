@@ -1,5 +1,5 @@
 Flask
 gunicorn
 PyPDF2
-spacy
+spacy==3.7.2
 language-tool-python
