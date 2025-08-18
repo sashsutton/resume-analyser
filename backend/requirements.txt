@@ -3,4 +3,4 @@ gunicorn
 PyPDF2
 spacy==3.7.2
 language-tool-python
-flask-cors
+flask_cors>=3.0.10
