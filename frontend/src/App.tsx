@@ -18,7 +18,7 @@ function App() {
   const [error, setError] = useState<string | null>(null);
 
   // Get backend URL from environment or use default
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:5001';
+  const BACKEND_URL = "http://localhost:5001";
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -78,7 +78,7 @@ function App() {
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px', fontFamily: 'Arial, sans-serif' }}>
       <h1 style={{ textAlign: 'center', color: '#333', marginBottom: '30px' }}>
-        Resume Analyzer
+        Resume Analyser
       </h1>
       
       <p style={{ textAlign: 'center', color: '#666', marginBottom: '30px' }}>
@@ -118,7 +118,7 @@ function App() {
             width: '100%'
           }}
         >
-          {loading ? 'Analyzing...' : 'Analyze Resume'}
+          {loading ? 'Analysing...' : 'Analyse Resume'}
         </button>
       </form>
 
