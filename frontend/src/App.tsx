@@ -76,7 +76,7 @@ function App() {
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto', padding: '20px', fontFamily: 'Arial, sans-serif' }}>
       <h1 style={{ textAlign: 'center', color: '#333', marginBottom: '30px' }}>
-        Resume Analyzer
+        Resume Analyser
       </h1>
       
       <p style={{ textAlign: 'center', color: '#666', marginBottom: '30px' }}>
