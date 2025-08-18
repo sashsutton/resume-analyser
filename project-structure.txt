@@ -1,0 +1,51 @@
+NLP-resume-analyser/
+├── backend/
+│   ├── app.py                    # Flask API server with resume analysis logic
+│   ├── requirements.txt          # Python dependencies (Flask, PyPDF2, spaCy, etc.)
+│   └── venv/                    # Python virtual environment
+│
+├── frontend/
+│   ├── src/
+│   │   ├── App.tsx              # Main React component with file upload and results display
+│   │   ├── main.tsx             # React app entry point
+│   │   ├── index.css            # Global CSS styles and Tailwind directives
+│   │   ├── vite-env.d.ts        # Vite environment type definitions
+│   │   └── assets/
+│   │       └── react.svg        # React logo asset
+│   │
+│   ├── public/
+│   │   ├── index.html           # HTML template
+│   │   └── vite.svg             # Vite logo
+│   │
+│   ├── package.json             # Node.js dependencies and scripts
+│   ├── package-lock.json        # Locked dependency versions
+│   ├── tsconfig.json            # TypeScript configuration
+│   ├── tsconfig.app.json        # TypeScript app-specific config
+│   ├── tsconfig.node.json       # TypeScript Node.js config
+│   ├── vite.config.ts           # Vite build tool configuration
+│   ├── eslint.config.js         # ESLint code quality configuration
+│   └── README.md                # Frontend-specific documentation
+│
+├── README.md                    # Main project documentation
+├── LICENSE                      # MIT License file
+└── project-structure.txt        # This file - project structure overview
+
+Key Files Description:
+=====================
+
+Backend (Flask):
+- app.py: Main Flask application with /analyse endpoint
+- requirements.txt: Python packages (Flask, PyPDF2, spaCy, LanguageTool, etc.)
+
+Frontend (React + TypeScript + Vite):
+- App.tsx: Main component handling file upload, API calls, and results display
+- main.tsx: React app bootstrap
+- package.json: Dependencies (React, TypeScript, Vite, etc.)
+- vite.config.ts: Build configuration
+
+Configuration:
+- tsconfig.json: TypeScript settings
+- eslint.config.js: Code linting rules
+- requirements.txt: Python dependencies
+
+The application follows a clean separation between frontend (React/TypeScript) and backend (Flask/Python) with clear API communication between them. 

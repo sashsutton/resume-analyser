@@ -1,0 +1,33 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "backend/app.py",
+        "use": "@vercel/python",
+        "config": {
+          "maxLambdaSize": "15mb",
+          "runtime": "python3.9"
+        }
+      },
+      {
+        "src": "frontend/vite.config.ts",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "dist",
+          "installCommand": "cd frontend && npm install",
+          "buildCommand": "cd frontend && npm run build"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "backend/app.py"
+      },
+      {
+        "src": "/(.*)", 
+        "dest": "frontend/dist/$1",
+        "continue": true
+      }
+    ]
+  }
